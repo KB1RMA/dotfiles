@@ -1,10 +1,13 @@
-Uses Vundle.
 
-## Installing
+https://www.chezmoi.io/quick-start/#set-up-a-new-machine-with-a-single-command
 
-1. Clone this repo (including submodules) to `~/.vim`. 
-2. Symlink `~/.vimrc` -> `~/.vim/.vimrc`
-3. Install plugins with:
+1. Install Homebrew `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
+1. Install [`chezmoi`](https://www.chezmoi.io/install/) with `brew install chezmoi`
+2. Run `chezmoi init --apply KB1RMA`
+
+## Vim initialization
+
+Installing vim plugins with Vundle
 
 ```sh
 $ vim +PluginInstall +qall

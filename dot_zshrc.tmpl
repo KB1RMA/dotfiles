@@ -1,0 +1,117 @@
+# If you come from bash you might have to change your $PATHe
+export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/Users/{{ .chezmoi.username }}/.local/bin:$PATH
+
+{{ if .chezmoid.hostname startsWith "LIBP" }}
+export AWS_CA_BUNDLE=/Users/Shared/.certificates/zscaler.pem
+export GIT_SSL_CAINFO=/Users/Shared/.certificates/zscaler.crt
+export CURL_CA_BUNDLE=/Users/Shared/.certificates/zscaler.pem
+export NODE_EXTRA_CA_CERTS=/Users/Shared/.certificates/zscaler.pem
+{{ end }}
+
+# Path to your oh-my-zsh installation.
+export ZSH=/Users/{{ .chezmoi.username }}/.oh-my-zsh
+
+# Don't spy on me please!
+export HOMEBREW_NO_ANALYTICS=1
+
+# Set name of the theme to load. Optionally, if you set this to "random"
+# it'll load a random theme each time that oh-my-zsh is loaded.
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="robbyrussell"
+
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
+
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
+HYPHEN_INSENSITIVE="true"
+
+# Uncomment the following line to disable bi-weekly auto-update checks.
+# DISABLE_AUTO_UPDATE="true"
+
+# Uncomment the following line to change how often to auto-update (in days).
+export UPDATE_ZSH_DAYS=30
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+export ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+export NVM_AUTO_USE=true
+export NVM_LAZY_LOAD=true
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+plugins=(git zsh-nvm zsh-autosuggestions vi-mode zsh-syntax-highlighting)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+export LANG=en_US.UTF-8
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+#alias gl="git log --date=short --pretty=format:'%C(auto) %h %ad %<|(35)%ar %<(70,mtrunc) %s %d' -n 20 $1"
+#alias gla="git log --date=short --pretty=format:'%C(auto) %<(18,trunc) %an %<|(35) %ar %<(70,mtrunc) %s %d' -n 20"
+#alias glc="git --no-pager log --format=%B $*"
+#alias gll="git log --date=short --pretty=format:'%C(auto) %h %ad %<|(35)%ar %<(70,mtrunc) %s %d' $*"
+#alias glu="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --al"
+
+alias l='ls -lah $1'
+alias dc='docker-compose $1'
+alias dc-dev='eval $(<~/.docker/dev-ddc/env.sh)'
+alias dc-np='eval $(<~/.docker/np-ddc/env.sh)'
+alias cdrepo='f() { cd ~/repos/$1 };f'
+alias g='git'
+
+eval "$(rbenv init -)"
+
+# Autocomplete for 'g' as well
+#complete -o default -o nospace -F _git g
+
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#export PYENV_ROOT="$HOME/.pyenv"
+#command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
+
+# Adding go/bin directory to path
+export PATH="/Users/{{ .chezmoi.username }}/go/bin/air:$PATH"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/{{ .chezmoi.username }}/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"

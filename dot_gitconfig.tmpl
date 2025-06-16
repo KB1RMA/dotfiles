@@ -1,0 +1,67 @@
+{{ if .chezmoid.hostname startsWith "LIBP" }}
+[http]
+	sslCAInfo = /Users/Shared/.certificates/zscaler.pem
+{{ end }}
+
+[user]
+	name = Christopher Snyder
+	{{ if .chezmoid.hostname startsWith "LIBP" }}
+	email = Christopher.Snyder@libertymutual.com
+	{{ else }}
+	email = kb1rma@arrl.net
+	{{ end }}
+	signingkey = D5AFFC6BFD33D9DE
+
+[merge]
+	tool = vscode
+
+[mergetool "p4mergetool"]
+	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$LOCAL $PWD/$REMOTE $PWD/$MERGED
+	trustExitCode = false
+
+[mergetool]
+	keepBackup = false
+
+[core]
+	editor = /usr/bin/vim
+	pager = diff-so-fancy | less --tabs=4 -RFX
+
+[color]
+	ui = true
+
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+
+[color "diff"]
+	meta = 227
+	frag = magenta bold
+	commit = 227 bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[alias]
+	last-branches = "!sh -c 'git for-each-ref --sort=\"-committerdate\" --format=\"%(committerdate)%09%(refname)\" refs/heads | sed -e \"s-refs/heads/--\"' | less"
+	find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+	show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+
+[commit]
+	gpgsign = true
+
+[url "http://github.com/"]
+	insteadOf = ssh://git@github.com/
+
+[url "https://github.com/"]
+	insteadOf = git://github.com/
+
+[mergetool "vscode"]
+	cmd = "code --wait "
+
+[diff]
+	tool = vscode
+
+[difftool "vscode"]
+	cmd = "code --wait --diff  "
