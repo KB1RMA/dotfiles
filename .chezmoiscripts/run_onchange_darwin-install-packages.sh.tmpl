@@ -1,10 +1,11 @@
 {{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
-brew bundle --file=/dev/stdin <<EOF
 {{ range .packages.darwin.taps -}}
 brew tap {{ . | quote }}
 {{ end -}}
+
+brew bundle --file=/dev/stdin <<EOF
 {{ range .packages.darwin.brews -}}
 brew {{ . | quote }}
 {{ end -}}
