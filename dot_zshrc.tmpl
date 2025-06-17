@@ -14,6 +14,9 @@ export ZSH=/Users/{{ .chezmoi.username }}/.oh-my-zsh
 # Don't spy on me please!
 export HOMEBREW_NO_ANALYTICS=1
 
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
