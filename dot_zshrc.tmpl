@@ -62,7 +62,15 @@ export NVM_LAZY_LOAD=true
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(git zsh-nvm zsh-autosuggestions vi-mode zsh-syntax-highlighting)
+plugins=(
+  git 
+  zsh-nvm 
+  vi-mode 
+  # The following plugins are installed/managed via Homebrew and sourced at 
+  #   the end of the file instead
+  # zsh-autosuggestions 
+  # zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
