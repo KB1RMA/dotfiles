@@ -31,9 +31,6 @@ Plugin 'vim-scripts/SpellCheck'
 call vundle#end()            " required
 filetype plugin indent on    " required
 
-" No newline at EOF for php
-autocmd FileType php setlocal noeol binary fileformat=dos
-
 " Change mapleader
 let mapleader=","
 
