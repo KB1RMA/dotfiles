@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# dconf.ini hash: {{ include "dot_vimrc" | sha256sum }}
-dconf load / < {{ joinPath .chezmoi.sourceDir "dot_vimrc" | quote }}
+# .vim_rc hash: {{ include "dot_vimrc" | sha256sum }}
 
 vim +PluginInstall +qall
