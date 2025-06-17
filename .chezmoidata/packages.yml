@@ -5,6 +5,7 @@ packages:
     - vim
     - nvim
     - gnupg
+    - pyenv
     - zsh-autosuggestions
     - zsh-syntax-highlighting
     casks: []
