@@ -176,7 +176,6 @@ autocmd FileType c,cpp,java,php,javascript,ruby,python autocmd BufWritePre <buff
 autocmd FileType python,ruby setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType javascript setlocal expandtab shiftwidth=4 softtabstop=4
 
-colorscheme molokai
 syntax on
 
 " JSON
