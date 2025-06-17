@@ -1,10 +1,14 @@
 packages:
   darwin:
+    taps:
+    # Tap for https://github.com/jorgelbg/pinentry-touchid
+    - jorgelbg/tap
     brews:
     - git
     - vim
     - nvim
     - gnupg
+    - pinentry-touchid
     - pyenv
     - zsh-autosuggestions
     - zsh-syntax-highlighting
