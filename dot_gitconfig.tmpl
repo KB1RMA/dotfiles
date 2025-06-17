@@ -1,11 +1,11 @@
-{{ if hasPrefix .chezmoi.hostname "LIBP" }}
+{{ if hasPrefix "LIBP" .chezmoi.hostname  }}
 [http]
 	sslCAInfo = /Users/Shared/.certificates/zscaler.pem
 {{ end }}
 
 [user]
 	name = Christopher Snyder
-	{{ if hasPrefix .chezmoi.hostname "LIBP" }}
+	{{ if hasPrefix "LIBP" .chezmoi.hostname }}
 	email = Christopher.Snyder@libertymutual.com
 	{{ else }}
 	email = kb1rma@arrl.net

@@ -1,7 +1,7 @@
 # If you come from bash you might have to change your $PATHe
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/Users/{{ .chezmoi.username }}/.local/bin:$PATH
 
-{{ if hasPrefix .chezmoi.hostname "LIBP" }}
+{{ if hasPrefix "LIBP" .chezmoi.hostname }}
 export AWS_CA_BUNDLE=/Users/Shared/.certificates/zscaler.pem
 export GIT_SSL_CAINFO=/Users/Shared/.certificates/zscaler.crt
 export CURL_CA_BUNDLE=/Users/Shared/.certificates/zscaler.pem
