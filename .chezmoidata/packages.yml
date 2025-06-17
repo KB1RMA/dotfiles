@@ -8,6 +8,7 @@ packages:
     - vim
     - nvim
     - gnupg
+    - pinentry
     - pinentry-touchid
     - pyenv
     - zsh-autosuggestions
