@@ -1,8 +1,10 @@
 packages:
   darwin:
     brews:
-    - 'git'
-    - 'vim'
-    - 'nvim'
-    - 'gnupg'
+    - git
+    - vim
+    - nvim
+    - gnupg
+    - zsh-autosuggestions
+    - zsh-syntax-highlighting
     casks: []
