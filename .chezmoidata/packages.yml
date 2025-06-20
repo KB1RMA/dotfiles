@@ -14,4 +14,6 @@ packages:
     - pyenv
     - zsh-autosuggestions
     - zsh-syntax-highlighting
-    casks: []
+    casks: 
+    - google-chrome
+    - alfred
