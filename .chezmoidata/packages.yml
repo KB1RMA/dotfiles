@@ -12,6 +12,7 @@ packages:
     - pinentry
     - pinentry-touchid
     - pyenv
+    - pipx
     - python
     - zsh-autosuggestions
     - zsh-syntax-highlighting
