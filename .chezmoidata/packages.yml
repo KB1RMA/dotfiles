@@ -12,8 +12,10 @@ packages:
     - pinentry
     - pinentry-touchid
     - pyenv
+    - python
     - zsh-autosuggestions
     - zsh-syntax-highlighting
     casks: 
     - google-chrome
     - alfred
+    - kap
