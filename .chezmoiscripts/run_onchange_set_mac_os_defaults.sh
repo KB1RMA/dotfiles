@@ -82,7 +82,7 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 # Keyboard
 
 # Fast keyboard repeat rate
-defaults write NSGlobalDomain KeyRepeat -int 1
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain KeyRepeat -int 2
+defaults write NSGlobalDomain InitialKeyRepeat -int 15
 
 echo "Completed configuring MacOS. Restart required for some changes"
