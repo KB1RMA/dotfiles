@@ -1,0 +1,16 @@
+# The `githubhome` alias allows me to present a different ssh key
+# for personal respositories and work repositories. Work ssh key is 
+# presented by default and personal repositories have their remote
+# set to `git@githubhome`
+Host "githubhome"
+	PreferredAuthentications publickey
+	User git
+	IdentityFile ~/.ssh/id_personal
+	HostName github.com
+	AddKeysToAgent yes
+
+# Specifies that ssh should only use the identity keys configured in the 
+# ssh_config files, even if ssh-agent offers more identities. 
+# https://www.ssh.com/academy/ssh/config
+Host *
+	IdentitiesOnly yes
