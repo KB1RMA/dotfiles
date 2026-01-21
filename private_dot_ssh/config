@@ -1,3 +1,9 @@
+Host tower.local
+        HostName tower.local
+        User root
+        IdentityFile ~/.ssh/id_personal
+        AddKeysToAgent yes
+
 # The `githubhome` alias allows me to present a different ssh key
 # for personal respositories and work repositories. Work ssh key is 
 # presented by default and personal repositories have their remote
@@ -7,6 +13,13 @@ Host "githubhome"
 	User git
 	IdentityFile ~/.ssh/id_personal
 	HostName github.com
+	AddKeysToAgent yes
+
+# Default GitHub configuration with id_ed25519
+Host github.com
+	PreferredAuthentications publickey
+	User git
+	IdentityFile ~/.ssh/id_ed25519
 	AddKeysToAgent yes
 
 # Specifies that ssh should only use the identity keys configured in the 
