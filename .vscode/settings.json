@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "*.sh.tmpl": "shellscript",
+    "dot_zshrc.tmpl": "shellscript",
+    "dot_gitconfig.tmpl": "properties"
+  }
+}

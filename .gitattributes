@@ -1,0 +1,4 @@
+# Tell GitHub Linguist how to highlight chezmoi template files
+*.sh.tmpl         linguist-language=Shell
+dot_zshrc.tmpl    linguist-language=Shell
+dot_gitconfig.tmpl linguist-language=INI
