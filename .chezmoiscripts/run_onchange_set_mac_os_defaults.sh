@@ -50,9 +50,9 @@ defaults write com.apple.dock "autohide" -bool "true"
 killall Dock
 
 # Safari
-defaults write com.apple.Safari "ShowFullURLInSmartSearchField" -bool "true"
+defaults write -app Safari "ShowFullURLInSmartSearchField" -bool "true"
 
-killall Safari
+killall Safari 2>/dev/null
 
 # Finder
 defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true"
@@ -84,5 +84,22 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 # Fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
+
+# Terminal.app — Use SauceCodePro Nerd Font Mono (required for Starship prompt icons)
+osascript -e 'tell application "Terminal" to set font name of default settings to "SauceCodeProNFM"'
+osascript -e 'tell application "Terminal" to set font size of default settings to 11'
+
+# Terminal.app — Material Theme colors (background: #263238, text: #EEFFFF, cursor: #FFCC00)
+osascript <<'APPLESCRIPT'
+tell application "Terminal"
+  set bg to {9728, 12800, 14336, 65535}
+  set fg to {60928, 65535, 65535, 65535}
+  set cr to {65535, 52224, 0, 65535}
+  set background color of default settings to bg
+  set normal text color of default settings to fg
+  set cursor color of default settings to cr
+  set bold text color of default settings to fg
+end tell
+APPLESCRIPT
 
 echo "Completed configuring MacOS. Restart required for some changes"

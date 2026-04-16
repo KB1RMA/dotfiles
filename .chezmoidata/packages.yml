@@ -19,7 +19,10 @@ packages:
     - fzf
     - bat
     - git-delta
+    - starship
     casks: 
     - google-chrome
     - alfred
     - kap
+    - font-fira-code-nerd-font
+    - font-sauce-code-pro-nerd-font

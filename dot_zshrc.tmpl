@@ -1,4 +1,4 @@
-# If you come from bash you might have to change your $PATHe
+# --- Path ---
 export PATH=$HOME/bin:/usr/local/bin:/usr/local/sbin:/Users/{{ .chezmoi.username }}/.local/bin:$PATH
 
 {{ if hasPrefix "LIBP" .chezmoi.hostname }}
@@ -8,119 +8,154 @@ export CURL_CA_BUNDLE=/Users/Shared/.certificates/zscaler.pem
 export NODE_EXTRA_CA_CERTS=/Users/Shared/.certificates/zscaler.pem
 {{ end }}
 
-# Path to your oh-my-zsh installation.
-export ZSH=/Users/{{ .chezmoi.username }}/.oh-my-zsh
-
-# Don't spy on me please!
 export HOMEBREW_NO_ANALYTICS=1
+export LANG=en_US.UTF-8
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# --- Completion ---
+autoload -Uz compinit
+compinit
 
-# Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z-_}={A-Za-z_-}'  # case/hyphen insensitive
+zstyle ':completion:*' menu select                                # highlight selection
+zstyle ':completion:*' list-colors ''                             # colorize completions
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# --- History ---
+HISTFILE=~/.zsh_history
+HISTSIZE=50000
+SAVEHIST=50000
+setopt APPEND_HISTORY
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_REDUCE_BLANKS
 
-# Uncomment the following line to use hyphen-insensitive completion. Case
-# sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
+# --- Directory options ---
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt PUSHD_IGNORE_DUPS
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+# --- Correction ---
+setopt CORRECT
 
-# Uncomment the following line to change how often to auto-update (in days).
-export UPDATE_ZSH_DAYS=30
+# --- Vi mode ---
+bindkey -v
+export KEYTIMEOUT=1
 
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+# --- Colored man pages ---
+export LESS_TERMCAP_mb=$'\e[1;31m'
+export LESS_TERMCAP_md=$'\e[1;36m'
+export LESS_TERMCAP_me=$'\e[0m'
+export LESS_TERMCAP_se=$'\e[0m'
+export LESS_TERMCAP_so=$'\e[1;44;33m'
+export LESS_TERMCAP_ue=$'\e[0m'
+export LESS_TERMCAP_us=$'\e[1;32m'
 
-# Uncomment the following line to enable command auto-correction.
-export ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-export NVM_AUTO_USE=true
-export NVM_LAZY_LOAD=true
-
-# Initialize pyenv before oh-my-zsh loads the pyenv plugin
+# --- pyenv ---
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-plugins=(
-  git
-  zsh-nvm
-  vi-mode
-  pyenv
-  fzf
-  colored-man-pages
-  extract
-  macos
-  # The following plugins are installed/managed via Homebrew and sourced at
-  #   the end of the file instead
-  # zsh-autosuggestions
-  # zsh-syntax-highlighting
-)
+# --- nvm (lazy loaded) ---
+export NVM_DIR="$HOME/.nvm"
 
-source $ZSH/oh-my-zsh.sh
+# Add nvm's default node to PATH eagerly so tools like starship can find it
+# Set your default with: nvm alias default <version>
+if [ -d "$NVM_DIR/versions/node" ] && [ -f "$NVM_DIR/alias/default" ]; then
+  _nvm_default=$(cat "$NVM_DIR/alias/default" | tr -d 'v ')
+  _nvm_default_dir=$(ls -d "$NVM_DIR/versions/node/v${_nvm_default}"* 2>/dev/null | sort -V | tail -1)
+  [ -n "$_nvm_default_dir" ] && export PATH="$_nvm_default_dir/bin:$PATH"
+  unset _nvm_default _nvm_default_dir
+fi
 
-# User configuration
+nvm() {
+  unfunction nvm node npm npx 2>/dev/null
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  nvm "$@"
+}
+node() { nvm --version >/dev/null 2>&1; unfunction node 2>/dev/null; command node "$@"; }
+npm()  { nvm --version >/dev/null 2>&1; unfunction npm  2>/dev/null; command npm  "$@"; }
+npx()  { nvm --version >/dev/null 2>&1; unfunction npx  2>/dev/null; command npx  "$@"; }
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-export LANG=en_US.UTF-8
+# Auto-use .nvmrc when entering a directory
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local nvmrc_path="$(nvm_find_nvmrc 2>/dev/null)"
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$(nvm version)" ]; then
+      nvm use
+    fi
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
+# --- fzf ---
+source <(fzf --zsh)
 
+# --- Plugins (Homebrew) ---
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# --- Editor ---
 alias vim='nvim'
 alias vi='nvim'
 export EDITOR='nvim'
 export VISUAL='nvim'
 
-# bat — cat replacement with syntax highlighting
+# --- bat ---
 alias cat='bat'
 export BAT_THEME='TwoDark'
 
+# --- General aliases ---
 alias l='ls -lah $1'
 alias dc='docker-compose $1'
 alias dc-dev='eval $(<~/.docker/dev-ddc/env.sh)'
 alias dc-np='eval $(<~/.docker/np-ddc/env.sh)'
+
+# --- Git aliases (replaces oh-my-zsh git plugin) ---
 alias g='git'
+alias ga='git add'
+alias gaa='git add --all'
+alias gb='git branch'
+alias gba='git branch --all'
+alias gc='git commit --verbose'
+alias gc!='git commit --verbose --amend'
+alias gca='git commit --verbose --all'
+alias gcb='git checkout -b'
+alias gco='git checkout'
+alias gd='git diff'
+alias gdca='git diff --cached'
+alias gf='git fetch'
+alias gl='git pull'
+alias glog='git log --oneline --decorate --graph'
+alias gm='git merge'
+alias gp='git push'
+alias gpf!='git push --force-with-lease'
+alias grb='git rebase'
+alias grbi='git rebase --interactive'
+alias gst='git status'
+alias gsw='git switch'
+alias gswc='git switch --create'
+
+# --- Custom functions ---
 
 # cd into ~/repos/<name> with tab completion for subdirectories
 cdrepo() { cd ~/repos/$1 }
 _cdrepo() { _files -W ~/repos -/ }
 compdef _cdrepo cdrepo
 
-# Autocomplete for 'g' as well
-#complete -o default -o nospace -F _git g
-
-# Adding go/bin directory to path
+# --- Extra paths ---
 export PATH="/Users/{{ .chezmoi.username }}/go/bin/air:$PATH"
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 export PATH="/Users/{{ .chezmoi.username }}/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
-# pyenv is initialised above (before plugins) and by the oh-my-zsh pyenv plugin
+# --- Starship prompt (must be last) ---
+eval "$(starship init zsh)"
