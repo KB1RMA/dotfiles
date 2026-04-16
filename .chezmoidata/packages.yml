@@ -16,6 +16,7 @@ packages:
     - python
     - zsh-autosuggestions
     - zsh-syntax-highlighting
+    - fzf
     casks: 
     - google-chrome
     - alfred
