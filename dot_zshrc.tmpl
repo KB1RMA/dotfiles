@@ -60,6 +60,11 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 export NVM_AUTO_USE=true
 export NVM_LAZY_LOAD=true
 
+# Initialize pyenv before oh-my-zsh loads the pyenv plugin
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init --path)"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(
@@ -114,4 +119,4 @@ export PATH="/Users/{{ .chezmoi.username }}/go/bin/air:$PATH"
 export PATH="/Users/{{ .chezmoi.username }}/.rd/bin:$PATH"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
-# pyenv is initialised by the oh-my-zsh pyenv plugin above
+# pyenv is initialised above (before plugins) and by the oh-my-zsh pyenv plugin
