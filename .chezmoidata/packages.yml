@@ -32,6 +32,7 @@ vscode_extensions:
   - dbaeumer.vscode-eslint
   - eamodio.gitlens
   - editorconfig.editorconfig
+  - equinusocio.vsc-material-theme-icons
   - github.vscode-github-actions
   - infeng.vscode-react-typescript
   - mechatroner.rainbow-csv
@@ -43,6 +44,7 @@ vscode_extensions:
   - ms-vscode-remote.remote-ssh-edit
   - ms-vscode.remote-explorer
   - prisma.prisma
+  - t3dotgg.vsc-material-theme-but-i-wont-sue-you
   - tamasfe.even-better-toml
   - vscodevim.vim
   - yoavbls.pretty-ts-errors
