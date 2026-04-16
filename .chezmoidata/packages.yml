@@ -17,6 +17,8 @@ packages:
     - zsh-autosuggestions
     - zsh-syntax-highlighting
     - fzf
+    - bat
+    - git-delta
     casks: 
     - google-chrome
     - alfred

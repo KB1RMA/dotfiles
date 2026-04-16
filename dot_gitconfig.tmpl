@@ -14,6 +14,7 @@
 
 [merge]
 	tool = vscode
+	conflictstyle = diff3
 
 [mergetool "p4mergetool"]
 	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$LOCAL $PWD/$REMOTE $PWD/$MERGED
@@ -24,24 +25,22 @@
 
 [core]
 	editor = nvim
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	side-by-side = true
+	syntax-theme = TwoDark
 
 [color]
 	ui = true
 
-[color "diff-highlight"]
-	oldNormal = red bold
-	oldHighlight = red bold 52
-	newNormal = green bold
-	newHighlight = green bold 22
-
-[color "diff"]
-	meta = 227
-	frag = magenta bold
-	commit = 227 bold
-	old = red bold
-	new = green bold
-	whitespace = red reverse
+[diff]
+	colorMoved = default
+	tool = vscode
 
 [alias]
 	last-branches = "!sh -c 'git for-each-ref --sort=\"-committerdate\" --format=\"%(committerdate)%09%(refname)\" refs/heads | sed -e \"s-refs/heads/--\"' | less"
@@ -62,9 +61,6 @@
 
 [mergetool "vscode"]
 	cmd = "code --wait "
-
-[diff]
-	tool = vscode
 
 [difftool "vscode"]
 	cmd = "code --wait --diff  "
