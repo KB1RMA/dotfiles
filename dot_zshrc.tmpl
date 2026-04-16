@@ -97,8 +97,12 @@ alias l='ls -lah $1'
 alias dc='docker-compose $1'
 alias dc-dev='eval $(<~/.docker/dev-ddc/env.sh)'
 alias dc-np='eval $(<~/.docker/np-ddc/env.sh)'
-alias cdrepo='f() { cd ~/repos/$1 };f'
 alias g='git'
+
+# cd into ~/repos/<name> with tab completion for subdirectories
+cdrepo() { cd ~/repos/$1 }
+_cdrepo() { _files -W ~/repos -/ }
+compdef _cdrepo cdrepo
 
 # Autocomplete for 'g' as well
 #complete -o default -o nospace -F _git g
