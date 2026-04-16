@@ -1,0 +1,50 @@
+{
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always"
+    },
+    "python.analysis.typeCheckingMode": "standard",
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
+    "github.copilot.chat.reviewSelection.instructions": [],
+    "python.analysis.typeEvaluation.deprecateTypingAliases": true,
+    "vim.highlightedyank.enable": true,
+    "vim.highlightedyank.color": "#a9dc7660",
+    "vim.highlightedyank.duration": 250,
+    "vim.smartRelativeLine": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "chat.mcp.gallery.enabled": true,
+    "chat.tools.terminal.autoApprove": {
+        "npm test": true
+    },
+    "chat.viewSessions.orientation": "stacked",
+    "chat.agent.maxRequests": 125,
+    "chat.tools.urls.autoApprove": {
+        "https://code.visualstudio.com": true,
+        "https://github.com/microsoft/vscode/wiki/*": true,
+        "https://github.com": true,
+        "https://resend.com": true,
+        "https://developers.cloudflare.com/queues/get-started": true,
+        "https://developers.cloudflare.com/queues": true,
+        "https://developers.cloudflare.com": true,
+        "https://*.cloudflare.com": true,
+        "https://opennext.js.org": true,
+        "https://getpino.io": true,
+        "https://github.com/pinojs/pino": true,
+        "https://getpino.io/#/docs/browser": true,
+        "https://getpino.io/#/docs/child-loggers": true,
+        "https://developers.cloudflare.com/workers/platform/language-support": true,
+        "https://developers.cloudflare.com/workers/platform": true,
+        "https://*.npmjs.com": true,
+        "https://nextjs.org": true
+    },
+    "json.schemaDownload.trustedDomains": {
+        "https://developer.microsoft.com/json-schemas/": true,
+        "https://json-schema.org/": true,
+        "https://json.schemastore.org/": true,
+        "https://raw.githubusercontent.com": true,
+        "https://raw.githubusercontent.com/devcontainers/spec/": true,
+        "https://raw.githubusercontent.com/microsoft/vscode/": true,
+        "https://schemastore.azurewebsites.net/": true,
+        "https://www.schemastore.org/": true
+    }
+}
