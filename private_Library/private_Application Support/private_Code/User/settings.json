@@ -8,11 +8,17 @@
     },
     "editor.lineHeight": 21,
     "editor.fontLigatures": "'ss01','ss05','dlig'",
+    "editor.inlineSuggest.syntaxHighlightingEnabled": true,
     "explorer.decorations.badges": true,
     "python.analysis.typeCheckingMode": "standard",
     "github.copilot.nextEditSuggestions.enabled": true,
     "python.defaultInterpreterPath": "/opt/homebrew/bin/python3",
     "github.copilot.chat.reviewSelection.instructions": [],
+    "github.copilot.chat.commitMessageGeneration.instructions": [
+        {
+            "text": "Use conventional commits format (feat:, fix:, chore:, etc.). Keep the subject line under 72 characters."
+        }
+    ],
     "python.analysis.typeEvaluation.deprecateTypingAliases": true,
     "vim.highlightedyank.enable": true,
     "vim.highlightedyank.color": "#a9dc7660",

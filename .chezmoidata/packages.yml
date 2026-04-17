@@ -20,7 +20,8 @@ packages:
     - bat
     - git-delta
     - starship
-    casks: 
+    - gh
+    casks:
     - google-chrome
     - alfred
     - kap
