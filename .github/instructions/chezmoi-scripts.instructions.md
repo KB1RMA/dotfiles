@@ -29,6 +29,5 @@ chezmoi treats the rendered script content as the hash key, so any change to the
 |---|---|
 | `run_once_install_bundle.sh` | Installs Homebrew packages from `.chezmoidata/packages.yml` |
 | `run_once_install_nvm.sh` | Installs nvm |
-| `run_once_install_oh_my_zsh.sh` | Installs Oh My Zsh |
 | `run_onchange_darwin-install-packages.sh.tmpl` | Re-installs Homebrew packages when `packages.yml` changes |
 | `run_onchange_set_mac_os_defaults.sh` | Applies macOS system defaults |
