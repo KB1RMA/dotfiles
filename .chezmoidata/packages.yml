@@ -26,3 +26,25 @@ packages:
     - kap
     - font-fira-code-nerd-font
     - font-sauce-code-pro-nerd-font
+    # - visual-studio-code
+vscode_extensions:
+  - charliermarsh.ruff
+  - dbaeumer.vscode-eslint
+  - eamodio.gitlens
+  - editorconfig.editorconfig
+  - equinusocio.vsc-material-theme-icons
+  - github.vscode-github-actions
+  - infeng.vscode-react-typescript
+  - mechatroner.rainbow-csv
+  - ms-python.debugpy
+  - ms-python.python
+  - ms-python.vscode-pylance
+  - ms-python.vscode-python-envs
+  - ms-vscode-remote.remote-ssh
+  - ms-vscode-remote.remote-ssh-edit
+  - ms-vscode.remote-explorer
+  - prisma.prisma
+  - t3dotgg.vsc-material-theme-but-i-wont-sue-you
+  - tamasfe.even-better-toml
+  - vscodevim.vim
+  - yoavbls.pretty-ts-errors

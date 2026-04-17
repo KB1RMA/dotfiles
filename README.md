@@ -6,6 +6,15 @@ This repository contains dotfile configurations managed with [chezmoi](https://w
 
 ![Terminal screenshot](images/terminal.png)
 
+## VS Code
+
+![VS Code screenshot](images/vscode.png)
+
+- [**Material Theme High Contrast**](https://github.com/t3dotgg/vsc-material-but-i-wont-sue-you) color theme with Material icons and Graphite accent
+- **SauceCodePro Nerd Font Mono** with font ligatures (`ss01`, `ss05`, `dlig`)
+- [**Vim**](https://marketplace.visualstudio.com/items?itemName=vscodevim.vim) keybindings with smart relative line numbers and highlighted yank
+- [**GitLens**](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens) inline blame annotations
+
 ## Tools
 
 - [**Starship**](https://starship.rs/) — cross-shell prompt with bracketed-segments preset and Material Theme colors

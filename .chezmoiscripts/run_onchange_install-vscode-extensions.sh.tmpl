@@ -1,0 +1,20 @@
+{{ if eq .chezmoi.os "darwin" -}}
+#!/bin/bash
+# packages.yml hash: {{ include ".chezmoidata/packages.yml" | sha256sum }}
+
+set -e
+
+if ! command -v code &>/dev/null; then
+  echo "VS Code CLI (code) not found, skipping extension installation"
+  exit 0
+fi
+
+installed=$(code --list-extensions 2>/dev/null | tr '[:upper:]' '[:lower:]')
+
+{{ range .vscode_extensions -}}
+if ! echo "$installed" | grep -qxF "{{ . | lower }}"; then
+  echo "Installing VS Code extension: {{ . }}"
+  code --install-extension "{{ . }}" --force
+fi
+{{ end -}}
+{{ end -}}
