@@ -25,10 +25,13 @@ chezmoi treats the rendered script content as the hash key, so any change to the
 
 ## Current Scripts
 
+Scripts are prefixed with a two-digit number to guarantee execution order.
+
 | Script | Purpose |
 |---|---|
-| `run_once_install_bundle.sh` | Installs Homebrew packages from `.chezmoidata/packages.yml` |
-| `run_once_install_nvm.sh` | Installs nvm |
+| `run_once_10_install_bundle.sh` | Installs Homebrew packages from `.chezmoidata/packages.yml` |
+| `run_once_20_install_nvm.sh` | Installs nvm |
+| `run_once_30_install_npm_globals.sh` | Installs global npm packages (TypeScript, LSP, ESLint) |
 | `run_onchange_darwin-install-packages.sh.tmpl` | Re-installs Homebrew packages when `packages.yml` changes |
 | `run_onchange_install-vscode-extensions.sh.tmpl` | Installs VS Code extensions listed in `packages.yml` when it changes |
 | `run_onchange_set_mac_os_defaults.sh` | Applies macOS system defaults |
