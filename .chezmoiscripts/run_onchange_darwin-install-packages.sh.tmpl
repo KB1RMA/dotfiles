@@ -3,6 +3,7 @@
 
 {{ range .packages.darwin.taps -}}
 brew tap {{ . | quote }}
+brew trust {{ . | quote }}
 {{ end -}}
 
 brew bundle --file=/dev/stdin <<EOF
