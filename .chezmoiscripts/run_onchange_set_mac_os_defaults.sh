@@ -81,6 +81,11 @@ defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
 
 # Keyboard
 
+# Map Caps Lock to Control for the built-in keyboard
+if command -v hidutil >/dev/null 2>&1; then
+  hidutil property --set '{"UserKeyMapping":[{"HIDKeyboardModifierMappingSrc":0x700000039,"HIDKeyboardModifierMappingDst":0x7000000E0}]}'
+fi
+
 # Fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 2
 defaults write NSGlobalDomain InitialKeyRepeat -int 15
