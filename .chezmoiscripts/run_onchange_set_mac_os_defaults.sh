@@ -3,6 +3,14 @@
 # Configures various Mac OS default to my peferences.
 # A list of Mac OS defaults can be found at https://macos-defaults.com/
 
+# CI runners have no interactive login session, so osascript/System Events
+# automation here would hang waiting on a TCC permission dialog nobody can
+# click, and there's no real machine state worth changing on a throwaway VM.
+if [ -n "$CI" ]; then
+  echo "Running in CI — skipping macOS defaults (requires an interactive GUI session)"
+  exit 0
+fi
+
 echo "Configuring MacOS defaults - requesting admin password"
 
 # Close any open System Preferences panes, to prevent them from overriding
