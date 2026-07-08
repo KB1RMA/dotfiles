@@ -1,6 +1,7 @@
 # Dotfiles
 
 [![chezmoi](https://img.shields.io/badge/managed%20by-chezmoi-blue?logo=chezmoi&style=for-the-badge)](https://www.chezmoi.io/)
+[![Validate chezmoi](https://img.shields.io/github/actions/workflow/status/KB1RMA/dotfiles/validate-chezmoi.yml?branch=master&style=for-the-badge&logo=github&label=validate)](https://github.com/KB1RMA/dotfiles/actions/workflows/validate-chezmoi.yml)
 
 This repository contains dotfile configurations managed with [chezmoi](https://www.chezmoi.io/).
 
