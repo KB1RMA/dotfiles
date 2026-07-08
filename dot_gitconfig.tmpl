@@ -1,73 +1,73 @@
 {{ if hasPrefix "LIBP" .chezmoi.hostname  }}
 [http]
-	sslCAInfo = /Users/Shared/.certificates/zscaler.pem
+  sslCAInfo = /Users/Shared/.certificates/zscaler.pem
 {{ end }}
 
 [user]
-	name = Christopher Snyder
-	{{ if hasPrefix "LIBP" .chezmoi.hostname }}
-	email = Christopher.Snyder@libertymutual.com
-	signingkey = D5AFFC6BFD33D9DE
-	{{ else }}
-	email = cellulararrest@gmail.com
-	signingkey = 355E056BD813F0EEA3E3303488162C1A8CEFAEE4
-	{{ end }}
+  name = Christopher Snyder
+  {{ if hasPrefix "LIBP" .chezmoi.hostname }}
+  email = Christopher.Snyder@libertymutual.com
+  signingkey = D5AFFC6BFD33D9DE
+  {{ else }}
+  email = cellulararrest@gmail.com
+  signingkey = 355E056BD813F0EEA3E3303488162C1A8CEFAEE4
+  {{ end }}
 
 [merge]
-	tool = vscode
-	conflictstyle = diff3
+  tool = vscode
+  conflictstyle = diff3
 
 [mergetool "p4mergetool"]
-	cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$LOCAL $PWD/$REMOTE $PWD/$MERGED
-	trustExitCode = false
+  cmd = /Applications/p4merge.app/Contents/Resources/launchp4merge $PWD/$BASE $PWD/$LOCAL $PWD/$REMOTE $PWD/$MERGED
+  trustExitCode = false
 
 [mergetool]
-	keepBackup = false
+  keepBackup = false
 
 [core]
-	editor = nvim
-	pager = delta
+  editor = nvim
+  pager = delta
 
 [interactive]
-	diffFilter = delta --color-only
+  diffFilter = delta --color-only
 
 [delta]
-	navigate = true
-	side-by-side = true
-	syntax-theme = TwoDark
+  navigate = true
+  side-by-side = true
+  syntax-theme = TwoDark
 
 [color]
-	ui = true
+  ui = true
 
 [diff]
-	colorMoved = default
-	tool = vscode
+  colorMoved = default
+  tool = vscode
 
 [alias]
-	last-branches = "!sh -c 'git for-each-ref --sort=\"-committerdate\" --format=\"%(committerdate)%09%(refname)\" refs/heads | sed -e \"s-refs/heads/--\"' | less"
-	find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
-	show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
+  last-branches = "!sh -c 'git for-each-ref --sort=\"-committerdate\" --format=\"%(committerdate)%09%(refname)\" refs/heads | sed -e \"s-refs/heads/--\"' | less"
+  find-merge = "!sh -c 'commit=$0 && branch=${1:-HEAD} && (git rev-list $commit..$branch --ancestry-path | cat -n; git rev-list $commit..$branch --first-parent | cat -n) | sort -k2 -s | uniq -f1 -d | sort -n | tail -1 | cut -f2'"
+  show-merge = "!sh -c 'merge=$(git find-merge $0 $1) && [ -n \"$merge\" ] && git show $merge'"
 
 [gpg]
-	program = {{ lookPath "gpg" }}
+  program = {{ lookPath "gpg" }}
 
 [commit]
-	gpgsign = true
+  gpgsign = true
 
 [url "http://github.com/"]
-	insteadOf = ssh://git@github.com/
+  insteadOf = ssh://git@github.com/
 
 [url "https://github.com/"]
-	insteadOf = git://github.com/
+  insteadOf = git://github.com/
 
 [mergetool "vscode"]
-	cmd = "code --wait "
+  cmd = "code --wait "
 
 [difftool "vscode"]
-	cmd = "code --wait --diff  "
+  cmd = "code --wait --diff  "
 
 [filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f

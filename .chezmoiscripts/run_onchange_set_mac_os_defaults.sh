@@ -52,7 +52,7 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 
 # Dock
 defaults write com.apple.dock "orientation" -string "left"
-defaults write com.apple.dock "tilesize" -int "30" 
+defaults write com.apple.dock "tilesize" -int "30"
 defaults write com.apple.dock "autohide" -bool "true"
 
 killall Dock
