@@ -8,18 +8,19 @@ Host tower.local
 # for personal respositories and work repositories. Work ssh key is 
 # presented by default and personal repositories have their remote
 # set to `git@githubhome`
+{{ if hasPrefix "LIBP" .chezmoi.hostname }}
 Host "githubhome"
 	PreferredAuthentications publickey
 	User git
 	IdentityFile ~/.ssh/id_personal
 	HostName github.com
 	AddKeysToAgent yes
+{{ end }}
 
-# Default GitHub configuration with id_ed25519
+# Default GitHub configuration
 Host github.com
 	PreferredAuthentications publickey
 	User git
-	IdentityFile ~/.ssh/id_ed25519
 	AddKeysToAgent yes
 
 # Specifies that ssh should only use the identity keys configured in the 
@@ -27,3 +28,8 @@ Host github.com
 # https://www.ssh.com/academy/ssh/config
 Host *
 	IdentitiesOnly yes
+	{{ if hasPrefix "LIBP" .chezmoi.hostname }}
+	IdentityFile ~/.ssh/id_ed25519
+	{{ else }}
+	IdentityFile ~/.ssh/id_personal
+	{{ end }}
