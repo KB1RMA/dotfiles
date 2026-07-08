@@ -1,0 +1,3 @@
+# Repository documentation — not dotfiles, so don't deploy to $HOME
+README.md
+images
