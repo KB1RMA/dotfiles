@@ -1,6 +1,8 @@
 {{ if eq .chezmoi.os "darwin" -}}
 #!/bin/bash
 
+set -euo pipefail
+
 {{ range .packages.darwin.taps -}}
 brew tap {{ . | quote }}
 brew trust {{ . | quote }}

@@ -18,6 +18,10 @@ packages:
     - zsh-autosuggestions
     - zsh-syntax-highlighting
     - fzf
+    # ripgrep and fd are required by the Neovim telescope config
+    # (live_grep needs rg; find_files uses fd when available)
+    - ripgrep
+    - fd
     - bat
     - git-delta
     - starship
