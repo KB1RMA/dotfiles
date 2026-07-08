@@ -29,3 +29,36 @@ jobs:
             --destination "$RUNNER_TEMP/home" \
             --cache "$RUNNER_TEMP/cache" \
             --force --dry-run --verbose
+
+      # Regression test for https://github.com/KB1RMA/dotfiles/issues/4:
+      # `chezmoi apply --dry-run` above only validates templates render; it
+      # never executes .chezmoiscripts, so it can't catch runtime failures in
+      # them (e.g. npm not being on PATH after nvm install). This step is a
+      # real, non-dry-run greenfield apply on the ephemeral runner, so every
+      # .chezmoiscripts script actually executes end to end.
+      #
+      # Note: these scripts reference the real $HOME/system directly (not
+      # chezmoi's --destination), so this genuinely installs brew packages,
+      # nvm, npm globals, etc. on the runner. That's fine since the runner is
+      # thrown away after the job. The macOS-defaults script skips itself in
+      # CI (see run_onchange_set_mac_os_defaults.sh) since it needs an
+      # interactive GUI session that CI can't provide.
+      - name: Full apply for real (greenfield run)
+        run: |
+          mkdir -p "$RUNNER_TEMP/home-full" "$RUNNER_TEMP/cache-full"
+          chezmoi apply \
+            --source "$GITHUB_WORKSPACE" \
+            --destination "$RUNNER_TEMP/home-full" \
+            --cache "$RUNNER_TEMP/cache-full" \
+            --force --verbose
+
+      - name: Verify npm is usable after the full apply
+        run: |
+          export NVM_DIR="$HOME/.nvm"
+          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+          command -v npm
+          npm --version
+          for pkg in typescript typescript-language-server eslint_d; do
+            npm list -g "$pkg" >/dev/null
+          done
