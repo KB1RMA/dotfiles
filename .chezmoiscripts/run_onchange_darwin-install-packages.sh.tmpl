@@ -8,7 +8,10 @@ brew tap {{ . | quote }}
 brew trust {{ . | quote }}
 {{ end -}}
 
-brew bundle --file=/dev/stdin <<EOF
+# Ensure everything in the package list is installed. --no-upgrade means this
+# never tries to upgrade already-installed packages, so a self-updating cask
+# (e.g. google-chrome, alfred) can't abort the whole apply.
+brew bundle --no-upgrade --file=/dev/stdin <<EOF
 {{ range .packages.darwin.brews -}}
 brew {{ . | quote }}
 {{ end -}}
@@ -16,4 +19,17 @@ brew {{ . | quote }}
 cask {{ . | quote }}
 {{ end -}}
 EOF
+
+# Handle upgrades separately so they can never block the apply:
+#   * CLI formulae upgrade cleanly, so do them automatically (non-fatal).
+#   * GUI casks (Chrome, Alfred, ...) self-update, so just report any that are
+#     outdated instead of forcing an upgrade that fails with "already an App".
+brew upgrade --formula || echo "==> Some formulae failed to upgrade; run 'brew upgrade' manually."
+
+outdated_casks="$(brew outdated --cask --greedy 2>/dev/null || true)"
+if [ -n "$outdated_casks" ]; then
+  echo
+  echo "==> Outdated casks (self-updating apps; upgrade manually if you want):"
+  echo "$outdated_casks"
+fi
 {{ end -}}
