@@ -1,12 +1,14 @@
 #!/bin/bash
 
+set -euo pipefail
+
 # Configures various Mac OS default to my peferences.
 # A list of Mac OS defaults can be found at https://macos-defaults.com/
 
 # CI runners have no interactive login session, so osascript/System Events
 # automation here would hang waiting on a TCC permission dialog nobody can
 # click, and there's no real machine state worth changing on a throwaway VM.
-if [ -n "$CI" ]; then
+if [ -n "${CI:-}" ]; then
   echo "Running in CI — skipping macOS defaults (requires an interactive GUI session)"
   exit 0
 fi
@@ -60,7 +62,8 @@ killall Dock
 # Safari
 defaults write -app Safari "ShowFullURLInSmartSearchField" -bool "true"
 
-killall Safari 2>/dev/null
+# killall fails when Safari isn't running, which is fine
+killall Safari 2>/dev/null || true
 
 # Finder
 defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true"
@@ -74,7 +77,7 @@ defaults write NSGlobalDomain "NSToolbarTitleViewRolloverDelay" -float "0"
 # Use list view by default
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 # Show the /Volumes folder
-sudo chflags nohidden /Volumess
+sudo chflags nohidden /Volumes
 
 killall Finder
 
