@@ -1,35 +1,32 @@
 Host tower.local
-        HostName tower.local
-        User root
-        IdentityFile ~/.ssh/id_personal
-        AddKeysToAgent yes
+  HostName tower.local
+  User root
+  IdentityFile ~/.ssh/id_personal
+  AddKeysToAgent yes
 
 # The `githubhome` alias allows me to present a different ssh key
-# for personal respositories and work repositories. Work ssh key is 
+# for personal respositories and work repositories. Work ssh key is
 # presented by default and personal repositories have their remote
 # set to `git@githubhome`
-{{ if hasPrefix "LIBP" .chezmoi.hostname }}
-Host "githubhome"
-	PreferredAuthentications publickey
-	User git
-	IdentityFile ~/.ssh/id_personal
-	HostName github.com
-	AddKeysToAgent yes
-{{ end }}
 
+{{ if hasPrefix "LIBP" .chezmoi.hostname -}}
+Host "githubhome"
+  PreferredAuthentications publickey
+  User git
+  IdentityFile ~/.ssh/id_personal
+  HostName github.com
+  AddKeysToAgent yes
+
+{{ end -}}
 # Default GitHub configuration
 Host github.com
-	PreferredAuthentications publickey
-	User git
-	AddKeysToAgent yes
+  PreferredAuthentications publickey
+  User git
+  AddKeysToAgent yes
 
-# Specifies that ssh should only use the identity keys configured in the 
-# ssh_config files, even if ssh-agent offers more identities. 
+# Specifies that ssh should only use the identity keys configured in the
+# ssh_config files, even if ssh-agent offers more identities.
 # https://www.ssh.com/academy/ssh/config
 Host *
-	IdentitiesOnly yes
-	{{ if hasPrefix "LIBP" .chezmoi.hostname }}
-	IdentityFile ~/.ssh/id_ed25519
-	{{ else }}
-	IdentityFile ~/.ssh/id_personal
-	{{ end }}
+  IdentitiesOnly yes
+  IdentityFile {{ if hasPrefix "LIBP" .chezmoi.hostname }}~/.ssh/id_ed25519{{ else }}~/.ssh/id_personal{{ end }}
