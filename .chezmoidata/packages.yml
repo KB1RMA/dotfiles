@@ -5,6 +5,7 @@ packages:
     - jorgelbg/tap
     brews:
     - git
+    - git-lfs
     - vim
     - nvim
     - tree
