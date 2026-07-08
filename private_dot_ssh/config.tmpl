@@ -21,11 +21,6 @@ Host "githubhome"
 Host github.com
 	PreferredAuthentications publickey
 	User git
-	{{ if hasPrefix "LIBP" .chezmoi.hostname }}
-	IdentityFile ~/.ssh/id_ed25519
-	{{ else }}
-	IdentityFile ~/.ssh/id_personal
-	{{ end }}
 	AddKeysToAgent yes
 
 # Specifies that ssh should only use the identity keys configured in the 
@@ -33,3 +28,8 @@ Host github.com
 # https://www.ssh.com/academy/ssh/config
 Host *
 	IdentitiesOnly yes
+	{{ if hasPrefix "LIBP" .chezmoi.hostname }}
+	IdentityFile ~/.ssh/id_ed25519
+	{{ else }}
+	IdentityFile ~/.ssh/id_personal
+	{{ end }}

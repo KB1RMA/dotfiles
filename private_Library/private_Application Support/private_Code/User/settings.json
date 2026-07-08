@@ -48,5 +48,6 @@
         "https://raw.githubusercontent.com": true,
         "https://schemastore.azurewebsites.net/": true,
         "https://www.schemastore.org/": true
-    }
+    },
+    "claudeCode.preferredLocation": "panel"
 }
