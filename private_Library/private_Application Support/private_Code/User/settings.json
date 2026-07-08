@@ -33,13 +33,25 @@
     "chat.agent.maxRequests": 125,
     "chat.tools.urls.autoApprove": {
         "https://code.visualstudio.com": true,
+        "https://github.com/microsoft/vscode/wiki/*": true,
         "https://github.com": true,
         "https://resend.com": true,
         "https://*.cloudflare.com": true,
         "https://opennext.js.org": true,
         "https://getpino.io": true,
         "https://*.npmjs.com": true,
-        "https://nextjs.org": true
+        "https://nextjs.org": true,
+        "https://*.datadoghq.com": true,
+        "https://claude.ai": true,
+        "https://*.anthropic.com": true,
+        "https://*.claude.com": true,
+        "https://*.github.com": true,
+        "https://modelcontextprotocol.io": true,
+        "https://github.blog": true,
+        "https://www.weather.gov": true,
+        "https://weather-gov.github.io": true,
+        "https://api.weather.gov": true,
+        "https://*.jfrog.com": true
     },
     "json.schemaDownload.trustedDomains": {
         "https://developer.microsoft.com/json-schemas/": true,
@@ -49,5 +61,6 @@
         "https://schemastore.azurewebsites.net/": true,
         "https://www.schemastore.org/": true
     },
-    "claudeCode.preferredLocation": "panel"
+    "claudeCode.preferredLocation": "panel",
+    "workbench.browser.enableChatTools": true
 }
