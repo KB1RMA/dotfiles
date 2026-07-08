@@ -1,0 +1,31 @@
+name: Validate chezmoi
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    # macOS runner since these templates/scripts target macOS (brew, macOS defaults, etc.)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install chezmoi
+        run: brew install chezmoi
+
+      - name: Dry-run apply to a scratch $HOME
+        run: |
+          mkdir -p "$RUNNER_TEMP/home" "$RUNNER_TEMP/cache"
+          chezmoi apply \
+            --source "$GITHUB_WORKSPACE" \
+            --destination "$RUNNER_TEMP/home" \
+            --cache "$RUNNER_TEMP/cache" \
+            --force --dry-run --verbose
