@@ -1,17 +1,17 @@
-{{ if hasPrefix "LIBP" .chezmoi.hostname  }}
+{{ if hasPrefix "LIBP" .chezmoi.hostname -}}
 [http]
   sslCAInfo = /Users/Shared/.certificates/zscaler.pem
-{{ end }}
 
+{{ end -}}
 [user]
   name = Christopher Snyder
-  {{ if hasPrefix "LIBP" .chezmoi.hostname }}
+  {{- if hasPrefix "LIBP" .chezmoi.hostname }}
   email = Christopher.Snyder@libertymutual.com
   signingkey = D5AFFC6BFD33D9DE
-  {{ else }}
+  {{- else }}
   email = cellulararrest@gmail.com
   signingkey = 355E056BD813F0EEA3E3303488162C1A8CEFAEE4
-  {{ end }}
+  {{- end }}
 
 [merge]
   tool = vscode
