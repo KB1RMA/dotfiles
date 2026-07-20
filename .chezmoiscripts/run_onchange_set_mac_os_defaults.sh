@@ -59,11 +59,15 @@ defaults write com.apple.dock "autohide" -bool "true"
 
 killall Dock
 
-# Safari
-defaults write -app Safari "ShowFullURLInSmartSearchField" -bool "true"
-
-# killall fails when Safari isn't running, which is fine
-killall Safari 2>/dev/null || true
+# Safari — its prefs live in a sandboxed container, so writing them requires
+# the terminal to have Full Disk Access (System Settings > Privacy & Security).
+# Warn instead of aborting the whole apply when TCC denies the write.
+if defaults write -app Safari "ShowFullURLInSmartSearchField" -bool "true" 2>/dev/null; then
+  # killall fails when Safari isn't running, which is fine
+  killall Safari 2>/dev/null || true
+else
+  echo "WARNING: Skipped Safari defaults — grant your terminal Full Disk Access and re-run 'chezmoi apply'"
+fi
 
 # Finder
 defaults write NSGlobalDomain "AppleShowAllExtensions" -bool "true"
