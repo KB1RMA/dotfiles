@@ -113,6 +113,38 @@ export GIT_EDITOR='nvim'
 alias cat='bat'
 export BAT_THEME='TwoDark'
 
+# --- macOS aliases (from Awesome-Bash-Aliases: https://github.com/ctrlaltvikas/Awesome-Bash-Aliases) ---
+alias finder='open .'
+alias showfiles='defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder'
+alias hidefiles='defaults write com.apple.finder AppleShowAllFiles -bool false; killall Finder'
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+alias sleepnow='pmset sleepnow'
+alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+alias cleanupds='find . -name ".DS_Store" -type f -delete'
+alias copy='pbcopy'
+alias paste='pbpaste'
+
+# Launch a macOS application by name, optionally with files.
+app() {
+  if [ "$#" -lt 1 ]; then
+    printf 'Usage: app <application-name> [files]\n' >&2
+    return 2
+  fi
+
+  open -a "$@"
+}
+
+# --- Homebrew aliases (from Awesome-Bash-Aliases) ---
+if command -v brew >/dev/null 2>&1; then
+  alias brewup='brew update && brew upgrade'
+  alias brewi='brew install'
+  alias brewr='brew uninstall'
+  alias brewsearch='brew search'
+  alias brewdoctor='brew doctor'
+  alias brewcleanup='brew cleanup'
+  alias brewservices='brew services list'
+fi
+
 # --- General aliases ---
 alias l='ls -lah $1'
 alias dc='docker-compose $1'
