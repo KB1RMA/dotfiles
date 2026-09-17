@@ -6,6 +6,25 @@ export AWS_CA_BUNDLE=/Users/Shared/.certificates/zscaler.pem
 export GIT_SSL_CAINFO=/Users/Shared/.certificates/zscaler.crt
 export CURL_CA_BUNDLE=/Users/Shared/.certificates/zscaler.pem
 export NODE_EXTRA_CA_CERTS=/Users/Shared/.certificates/zscaler.pem
+
+# --- SSH agent identity order ---
+# macOS reloads keys from Keychain into ssh-agent in an unspecified order.
+# OpenSSH offers agent-held identities in the order the agent returns them,
+# NOT the IdentityFile order in ~/.ssh/config. If the work key
+# (id_ed25519) ends up ahead of id_personal, connections to `githubhome`
+# authenticate as the work/EMU account instead of the personal one, which
+# breaks git-lfs (Unauthorized) even though a plain clone appears to work.
+# Enforce personal-key-first ordering once per login session.
+if [ -S "$SSH_AUTH_SOCK" ] && command -v ssh-add >/dev/null 2>&1; then
+  _ssh_order_marker="/tmp/.ssh_agent_key_order_fixed_$UID"
+  if [ ! -f "$_ssh_order_marker" ]; then
+    ssh-add -D >/dev/null 2>&1
+    ssh-add --apple-use-keychain ~/.ssh/id_personal >/dev/null 2>&1
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519 >/dev/null 2>&1
+    touch "$_ssh_order_marker"
+  fi
+  unset _ssh_order_marker
+fi
 {{ end }}
 
 export HOMEBREW_NO_ANALYTICS=1
