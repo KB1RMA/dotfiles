@@ -6,6 +6,25 @@ export AWS_CA_BUNDLE=/Users/Shared/.certificates/zscaler.pem
 export GIT_SSL_CAINFO=/Users/Shared/.certificates/zscaler.crt
 export CURL_CA_BUNDLE=/Users/Shared/.certificates/zscaler.pem
 export NODE_EXTRA_CA_CERTS=/Users/Shared/.certificates/zscaler.pem
+
+# --- SSH agent identity order ---
+# macOS reloads keys from Keychain into ssh-agent in an unspecified order.
+# OpenSSH offers agent-held identities in the order the agent returns them,
+# NOT the IdentityFile order in ~/.ssh/config. If the work key
+# (id_ed25519) ends up ahead of id_personal, connections to `githubhome`
+# authenticate as the work/EMU account instead of the personal one, which
+# breaks git-lfs (Unauthorized) even though a plain clone appears to work.
+# Enforce personal-key-first ordering once per login session.
+if [ -S "$SSH_AUTH_SOCK" ] && command -v ssh-add >/dev/null 2>&1; then
+  _ssh_order_marker="/tmp/.ssh_agent_key_order_fixed_$UID"
+  if [ ! -f "$_ssh_order_marker" ]; then
+    ssh-add -D >/dev/null 2>&1
+    ssh-add --apple-use-keychain ~/.ssh/id_personal >/dev/null 2>&1
+    ssh-add --apple-use-keychain ~/.ssh/id_ed25519 >/dev/null 2>&1
+    touch "$_ssh_order_marker"
+  fi
+  unset _ssh_order_marker
+fi
 {{ end }}
 
 export HOMEBREW_NO_ANALYTICS=1
@@ -112,6 +131,38 @@ export GIT_EDITOR='nvim'
 # --- bat ---
 alias cat='bat'
 export BAT_THEME='TwoDark'
+
+# --- macOS aliases (from Awesome-Bash-Aliases: https://github.com/ctrlaltvikas/Awesome-Bash-Aliases) ---
+alias finder='open .'
+alias showfiles='defaults write com.apple.finder AppleShowAllFiles -bool true; killall Finder'
+alias hidefiles='defaults write com.apple.finder AppleShowAllFiles -bool false; killall Finder'
+alias flushdns='sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder'
+alias sleepnow='pmset sleepnow'
+alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
+alias cleanupds='find . -name ".DS_Store" -type f -delete'
+alias copy='pbcopy'
+alias paste='pbpaste'
+
+# Launch a macOS application by name, optionally with files.
+app() {
+  if [ "$#" -lt 1 ]; then
+    printf 'Usage: app <application-name> [files]\n' >&2
+    return 2
+  fi
+
+  open -a "$@"
+}
+
+# --- Homebrew aliases (from Awesome-Bash-Aliases) ---
+if command -v brew >/dev/null 2>&1; then
+  alias brewup='brew update && brew upgrade'
+  alias brewi='brew install'
+  alias brewr='brew uninstall'
+  alias brewsearch='brew search'
+  alias brewdoctor='brew doctor'
+  alias brewcleanup='brew cleanup'
+  alias brewservices='brew services list'
+fi
 
 # --- General aliases ---
 alias l='ls -lah $1'
